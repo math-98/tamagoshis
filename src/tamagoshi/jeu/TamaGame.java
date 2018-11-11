@@ -6,10 +6,22 @@ import tamagoshi.util.Utilisateur;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Game class
+ * @author Mathieu SERVIERE
+ */
 public class TamaGame {
     private ArrayList<Tamagoshi> initialList = new ArrayList<>();
     private ArrayList<Tamagoshi> currentList;
 
+    /**
+     * Init method.<br>
+     * This method asks the user how many Tamagoshi he wants to create.<br>
+     * For each one it asks for a name.<br>
+     * It adds everytime the created Tamagoshi to a list (Initial).<br>
+     * This list is duplicated at the end (Current),
+     * this clone will only contain alive Tamagoshis.
+     */
     private void initialisation() {
         Tamagoshi tamagoshi;
 
@@ -27,6 +39,16 @@ public class TamaGame {
         this.currentList = (ArrayList<Tamagoshi>) this.initialList.clone();
     }
 
+    /**
+     * Game method.<br>
+     * This method runs while there are still alive Tamagoshis:
+     * <ul>
+     *     <li>It makes every Tamagoshi to speak.</li>
+     *     <li>The user selects wich Tamagoshi he wants to feed.</li>
+     *     <li>The user selects wich Tamagoshi he wants to play with.</li>
+     *     <li>It removes from the current list the dead Tamagoshis (Age, hunger, boreness).</li>
+     * </ul>
+     */
     private void play() {
         int tour = 0;
         while (!currentList.isEmpty()) {
@@ -69,6 +91,15 @@ public class TamaGame {
         }
     }
 
+    /**
+     * Method calculing and showing the score at the end of the game.<br>
+     * This methods loops over the initial list and looks the age each Tamagoshi had at the end of the game:
+     * <ul>
+     *     <li>If the Tamagoshi had reached its lifetime it's considered to have survived.</li>
+     *     <li>Else it means it's dead because of carelessness (Hunger or boreness)(Faim ou manque d'amusement).</li>
+     * </ul>
+     * It sums these ages to calculate the final score.
+     */
     private void score() {
         int points = 0;
         for (Tamagoshi tamagoshi : initialList) {
@@ -85,6 +116,19 @@ public class TamaGame {
         System.out.println("Difficulté : "+(initialList.size()-1));
     }
 
+    /**
+     * Main method.<br>
+     * This method successively calls:
+     * <ul>
+     *     <li>Initialization (Tamagoshis creation).</li>
+     *     <li>Game itself.</li>
+     *     <li>Score calculation &amp; displaying.</li>
+     * </ul>
+     * @see TamaGame#initialisation()
+     * @see TamaGame#play()
+     * @see TamaGame#score()
+     * @param args Arguments entered in command line (Unused)
+     */
     public static void main(String[] args) {
         TamaGame game = new TamaGame();
         game.initialisation();
