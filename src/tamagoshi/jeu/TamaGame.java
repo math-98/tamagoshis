@@ -47,9 +47,17 @@ public class TamaGame {
             txtfeed += listTama;
             currentList.get(Utilisateur.saisieNombre(txtfeed, 0, currentList.size()-1)).mange();
 
+            System.out.println();
+
+            String txtfun = "S'amuser avec quel Tamagoshi ?";
+            txtfun += listTama;
+            currentList.get(Utilisateur.saisieNombre(txtfun, 0, currentList.size()-1)).divertir();
+
             for(Iterator<Tamagoshi> tamagoshiIterator = currentList.iterator(); tamagoshiIterator.hasNext();) {
                 Tamagoshi tamagoshi = tamagoshiIterator.next();
                 if (!tamagoshi.consommeEnergie()) {
+                    tamagoshiIterator.remove();
+                } else if (!tamagoshi.consommeFun()) {
                     tamagoshiIterator.remove();
                 } else if (!tamagoshi.vieillir()) {
                     tamagoshiIterator.remove();
